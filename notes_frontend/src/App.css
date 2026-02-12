@@ -1,104 +1,353 @@
-/* CSS Variables for Theme Management */
+/* Retro Notes theme (plain CSS only) */
 :root {
-  /* Light theme colors */
-  --bg-primary: #ffffff;
-  --bg-secondary: #f8f9fa;
-  --text-primary: #282c34;
-  --text-secondary: #61dafb;
-  --border-color: #e9ecef;
-  --button-bg: #007bff;
-  --button-text: #ffffff;
+  --bg: #0b1020;
+  --surface: #121a33;
+  --surface-2: #0f1730;
+  --text: #e8ecff;
+  --muted: rgba(232, 236, 255, 0.7);
+  --border: rgba(232, 236, 255, 0.14);
+
+  --accent: #33ffd6;
+  --accent-2: #ff4fd8;
+  --warning: #ffd24a;
+  --danger: #ff5c7a;
+
+  --shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+
+  --radius: 14px;
+  --radius-sm: 10px;
+
+  --font-sans: "Inter", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New",
+    monospace;
 }
 
-[data-theme="dark"] {
-  /* Dark theme colors */
-  --bg-primary: #1a1a1a;
-  --bg-secondary: #282c34;
-  --text-primary: #ffffff;
-  --text-secondary: #61dafb;
-  --border-color: #404040;
-  --button-bg: #0056b3;
-  --button-text: #ffffff;
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-sans);
+  color: var(--text);
+  background:
+    radial-gradient(1200px 600px at 20% -10%, rgba(51, 255, 214, 0.18), transparent 60%),
+    radial-gradient(900px 520px at 105% 0%, rgba(255, 79, 216, 0.16), transparent 55%),
+    radial-gradient(900px 520px at 30% 110%, rgba(59, 130, 246, 0.10), transparent 55%),
+    linear-gradient(180deg, #070a14 0%, #0b1020 40%, #070a14 100%);
+}
+
+a {
+  color: inherit;
 }
 
 .App {
-  text-align: center;
-  background-color: var(--bg-primary);
-  color: var(--text-primary);
   min-height: 100vh;
-  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: var(--bg-secondary);
+/* Layout */
+.shell {
   min-height: 100vh;
+  display: grid;
+  grid-template-rows: auto 1fr;
+}
+
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 5;
+  border-bottom: 1px solid var(--border);
+  background: linear-gradient(180deg, rgba(18, 26, 51, 0.92), rgba(18, 26, 51, 0.78));
+  backdrop-filter: blur(10px);
+}
+
+.header-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 18px 18px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.brand {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  min-width: 220px;
+}
+
+.brand-title {
+  font-weight: 800;
+  letter-spacing: 0.02em;
+  margin: 0;
+  font-size: 18px;
+}
+
+.brand-badge {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--accent);
+  border: 1px solid rgba(51, 255, 214, 0.4);
+  padding: 4px 8px;
+  border-radius: 999px;
+}
+
+.header-right {
+  margin-left: auto;
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.main {
+  max-width: 1200px;
+  margin: 0 auto;
+  width: 100%;
+  padding: 18px;
+  display: grid;
+  grid-template-columns: 340px 1fr;
+  gap: 16px;
+}
+
+/* Cards */
+.card {
+  background: linear-gradient(180deg, rgba(18, 26, 51, 0.92), rgba(15, 23, 48, 0.92));
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  overflow: hidden;
+}
+
+/* Buttons */
+.btn {
+  appearance: none;
+  border: 1px solid var(--border);
+  color: var(--text);
+  background: rgba(18, 26, 51, 0.65);
+  border-radius: 12px;
+  padding: 10px 12px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: transform 120ms ease, background-color 120ms ease, border-color 120ms ease;
+}
+
+.btn:hover {
+  transform: translateY(-1px);
+  border-color: rgba(232, 236, 255, 0.25);
+}
+
+.btn:active {
+  transform: translateY(0px);
+}
+
+.btn-primary {
+  border-color: rgba(51, 255, 214, 0.5);
+  background: linear-gradient(180deg, rgba(51, 255, 214, 0.16), rgba(51, 255, 214, 0.08));
+}
+
+.btn-danger {
+  border-color: rgba(255, 92, 122, 0.55);
+  background: linear-gradient(180deg, rgba(255, 92, 122, 0.18), rgba(255, 92, 122, 0.08));
+}
+
+.btn-ghost {
+  background: transparent;
+}
+
+.btn:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* Sidebar */
+.sidebar {
   display: flex;
   flex-direction: column;
+  min-height: 0;
+}
+
+.sidebar-top {
+  padding: 14px 14px 10px 14px;
+  border-bottom: 1px solid var(--border);
+}
+
+.sidebar-actions {
+  display: flex;
+  gap: 10px;
   align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: var(--text-primary);
-  transition: background-color 0.3s ease;
-  position: relative;
+  justify-content: space-between;
 }
 
-.App-link {
-  color: var(--text-secondary);
-  transition: color 0.3s ease;
+.search {
+  margin-top: 10px;
+  width: 100%;
 }
 
-.theme-toggle {
-  position: absolute;
-  top: 20px;
-  right: 20px;
-  background-color: var(--button-bg);
-  color: var(--button-text);
-  border: none;
-  border-radius: 8px;
-  padding: 10px 20px;
-  font-size: 14px;
-  font-weight: 600;
+.input {
+  width: 100%;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: rgba(9, 12, 26, 0.35);
+  color: var(--text);
+  padding: 10px 12px;
+  outline: none;
+}
+
+.input::placeholder {
+  color: rgba(232, 236, 255, 0.45);
+}
+
+.list {
+  padding: 8px;
+  overflow: auto;
+  min-height: 0;
+}
+
+.note-item {
+  width: 100%;
+  text-align: left;
+  padding: 12px 12px;
+  border-radius: 12px;
+  border: 1px solid transparent;
+  background: transparent;
+  color: var(--text);
   cursor: pointer;
-  transition: all 0.3s ease;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  display: grid;
+  gap: 6px;
 }
 
-.theme-toggle:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
-  opacity: 0.9;
+.note-item:hover {
+  background: rgba(232, 236, 255, 0.05);
+  border-color: rgba(232, 236, 255, 0.10);
 }
 
-.theme-toggle:active {
-  transform: translateY(0);
+.note-item-active {
+  background: rgba(51, 255, 214, 0.08);
+  border-color: rgba(51, 255, 214, 0.30);
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+.note-title {
+  margin: 0;
+  font-weight: 800;
+  font-size: 14px;
+  letter-spacing: 0.01em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.note-preview {
+  margin: 0;
+  font-size: 12px;
+  color: var(--muted);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.note-meta {
+  margin: 0;
+  font-size: 11px;
+  color: rgba(232, 236, 255, 0.55);
+  font-family: var(--font-mono);
+}
+
+/* Editor */
+.editor {
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+
+.editor-top {
+  padding: 14px;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  justify-content: space-between;
+}
+
+.editor-title {
+  margin: 0;
+  font-size: 14px;
+  color: var(--muted);
+  font-family: var(--font-mono);
+}
+
+.editor-actions {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.editor-body {
+  padding: 14px;
+  display: grid;
+  gap: 10px;
+  min-height: 0;
+}
+
+.textarea {
+  min-height: 360px;
+  resize: vertical;
+  font-family: var(--font-sans);
+  line-height: 1.45;
+}
+
+.statusbar {
+  padding: 10px 14px;
+  border-top: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.pill {
+  font-family: var(--font-mono);
+  border: 1px solid var(--border);
+  padding: 6px 10px;
+  border-radius: 999px;
+  background: rgba(9, 12, 26, 0.22);
+}
+
+/* Alerts */
+.alert {
+  border: 1px solid rgba(255, 92, 122, 0.45);
+  background: rgba(255, 92, 122, 0.10);
+  padding: 10px 12px;
+  border-radius: 12px;
+  color: var(--text);
+  margin-top: 10px;
+}
+
+.skeleton {
+  opacity: 0.75;
+  font-family: var(--font-mono);
+}
+
+@media (max-width: 980px) {
+  .main {
+    grid-template-columns: 1fr;
   }
-  to {
-    transform: rotate(360deg);
-  }
-}
 
-/* Responsive design for mobile */
-@media (max-width: 768px) {
-  .theme-toggle {
-    top: 10px;
-    right: 10px;
-    padding: 8px 16px;
-    font-size: 12px;
+  .brand {
+    min-width: auto;
   }
 }
